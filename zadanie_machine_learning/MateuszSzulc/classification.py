@@ -24,7 +24,7 @@ parameters = [{"n_estimators": [x for x in range(5, 101, 5)], "criterion": ["gin
 results = []
 params = []
 
-for x in range(1, 10):
+for x in range(1, len(x[0])):
     kpca = KernelPCA(n_components=x, kernel='rbf')
     X_train = kpca.fit_transform(x_train)
     X_test = kpca.transform(x_test)
