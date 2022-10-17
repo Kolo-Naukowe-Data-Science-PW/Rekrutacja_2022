@@ -18,9 +18,6 @@ class Solution:
             places.update(i)
 
         self.places = list(places)
-        """
-        add track of used verticies
-        """
 
     def sort_values(self):
         self.sorted = {}
@@ -70,7 +67,7 @@ class Solution:
 
     def __repr__(self):
         return self.solution[0]
-
+        
     
 def main():
     dictionary = {
