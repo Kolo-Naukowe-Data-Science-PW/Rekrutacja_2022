@@ -40,7 +40,7 @@ def create_table(graph: Dict[str, Dict[str, int]]
         graph (Dict[str, Dict[str, int]]): Data returned by create_graph function
 
     Returns:
-        Dict[str, List[Union[float, str]])
+        Dict[str, List[Union[float, str]]]
     """
     table = {}
 
