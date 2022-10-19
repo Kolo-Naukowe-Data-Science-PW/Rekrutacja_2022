@@ -6,7 +6,7 @@ def create_graph(graph: Dict[Tuple[str, str], float]
     """
     Function reshapes the given data into a more
     human and computer readable format. The data structure contains
-    any nodes neighbor
+    any node neighbors
 
     Args:
         graph Dict[Tuple[str, str], float]: Given data structure
