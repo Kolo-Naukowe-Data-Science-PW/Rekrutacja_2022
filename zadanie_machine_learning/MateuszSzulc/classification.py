@@ -10,6 +10,8 @@ DATA_PATH = "Data.csv"
 dataset = pandas.read_csv(DATA_PATH)
 pandas.set_option('display.max_columns', None)
 print(dataset.head())
+print(dataset.isnull().values.any())
+
 x = dataset.iloc[:, 1:-1].values
 y = dataset.iloc[:, -1].values
 
