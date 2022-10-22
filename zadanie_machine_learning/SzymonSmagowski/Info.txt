@@ -1,0 +1,7 @@
+1. Link do kaggle:
+https://www.kaggle.com/code/szymonsmg/titanicprediction
+
+2. Pisałem to tam jakiś czas temu i nie mam czasu za bardzo żeby zmieniać wszystko 
+na lokalne - zwłaszcza dane, które muszę pobrać.
+
+3. Task to zwykłe i proste binary classification - akurat w tym przypadku porównuje kilka modeli machine learningowych. Robiłem to jakiś czas temu. Jeśli to nie przejdzie to mogę zrobić dedykowane zadanie, ale muszę mieć trochę więcej czasu, bo jestem ostatnio zajęty.
