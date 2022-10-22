@@ -45,8 +45,9 @@ for x in range(1, len(x[0])):
     params.append(grid_search.best_params_ | {"n_components": x})
     print(x)
 
-best_accuracy_index = results.index(max(results))
-print(params[best_accuracy_index])
+best_accuracy = max(results)
+best_accuracy_index = results.index(best_accuracy)
+print(f"Accuracy: {best_accuracy}", params[best_accuracy_index])
 
 kpca = KernelPCA(n_components=params[best_accuracy_index]["n_components"], kernel='rbf')
 X_train = kpca.fit_transform(x_train)
@@ -56,8 +57,8 @@ classifier = RandomForestClassifier(n_estimators=params[best_accuracy_index]["n_
                                     criterion=params[best_accuracy_index]["criterion"])
 classifier.fit(X_train, y_train)
 
-expected_result = 2
-new_sample = [3, 2, 1, 1, 1, 1, 2, 1, 1]
+expected_result = 4
+new_sample = [4, 8, 8, 5, 4, 5, 10, 4, 1]
 
 new_sample = standard_scaler.transform([new_sample])
 new_sample = kpca.transform(new_sample)
