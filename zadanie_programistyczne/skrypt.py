@@ -1,14 +1,18 @@
 ## tutaj bedziemy sobie implementowali algorytm dijkstry, no bo w sumie to jest chyba najlepszy algorytm do robienia tego
 # zakladamy ze graf nie jest skierowany dla łatwosci
 
+# wartosc wstawiana do odległosci miedzy wierzcholkami jezeli nie ma miedzy nimi krawedzi
 NONE_VAL = -1
+# bardzo duza liczba
 MIN_DIST = 1e10
 
 
-class Graph():
+class Graph:
     def __init__(self, vertices):
-        # tutaj bedziemy podawa
-        self.V = {}
+        """
+        inicjalizacja grafu, na podstawie wierzchołkow
+        """
+        self.V = [] # lista zawierająca wierzchołki grafu 
         self.n = 0
         self.E = []
         for key in vertices:
@@ -17,8 +21,7 @@ class Graph():
 
             if key[1] not in self.V:
                 self.add_vertex(key[1])
-            
-            key_indexes = (self.V[key[0]], self.V[key[1]])
+            key_indexes = (self.V.index(key[0]), self.V.index(key[1]))
             
             # if self.E[key[0]][key[1]] == -1:
             self.E[key_indexes[0]][key_indexes[1]] = vertices[key]
@@ -27,8 +30,11 @@ class Graph():
         print(f"pomyslnie stworzono graf o {self.n} wierzchołkach!\n")
 
     def add_vertex(self, A):
+        """
+        funkcja dodaje wierzcholek do grafu i rozszerza macierz krawedzi
+        """
         if A not in self.V:
-            self.V[A] = self.n
+            self.V.append(A)
             self.n+=1
             
             self.E.append([NONE_VAL for i in range(self.n-1)])
@@ -39,7 +45,9 @@ class Graph():
             self.E[len(self.V)-1][len(self.V)-1] = 0
 
     def min_dist(self, vertex_dist, visited):
-        # funkcja zwraca sobie najblizszy wierzcholek do danego, ktory nie zostal wczesniej odwiedzony
+        """ 
+        funkcja zwraca najblizszy wierzcholek do ustalonego zrodla, ktory nie zostal wczesniej odwiedzony 
+        """
 
         min = MIN_DIST
         min_index = 0
@@ -55,21 +63,19 @@ class Graph():
 
     def dijkstra(self, source):
         """
-        wyszukuje sobie najkrótsze drogi do wierzchołkow 
-        Args:
-            source -> skad poszukujemy drog
+        funkcja wyszukuje najkrótsze drogi w grafie do wszystkich wierzchołków z podanego źródła - algorytm dijkstry
         """
         vertex_dist = [MIN_DIST] * self.n
         visited = [False] * self.n
+        routes = [[]] * self.n
 
-        s_index = self.V[source]
+        s_index = self.V.index(source)
         vertex_dist[s_index] = 0
 
         for i in range(self.n):
             # przechodzimy sb po prostu n razy przez wszystkie wierzchołki
             
             next_vertex = self.min_dist(vertex_dist, visited)
-            print(next_vertex)
             visited[next_vertex] = True
 
             # teraz modyfikujemy odległosci w dist
@@ -77,18 +83,29 @@ class Graph():
                 v_dist = self.E[next_vertex][v]
                 if v_dist > 0 and vertex_dist[v] > v_dist + vertex_dist[next_vertex] and visited[v] == False:
                     vertex_dist[v] =  v_dist + vertex_dist[next_vertex]
+                    routes[v] = routes[next_vertex] + [next_vertex]
 
-        return vertex_dist
+        for i in range(len(routes)):
+            routes[i].append(i)
+
+        return vertex_dist, routes
 
 
     def shortest_path(self, A, B):
-        distances = self.dijkstra(A)
+        """
+        funkcja na podstawie algorytmu dijkstry znajduje najkrotsze polaczenie miedzy dwoma podanymi wierzcholkami
+        """
+        distances, routes = self.dijkstra(A)
 
-        b = self.V[B]
+        b = self.V.index(B)
 
-        return distances[b]
+        droga = routes[b]
 
 
+        for i in range(len(droga)):
+            droga[i] = (self.V[droga[i]])
+
+        return distances[b], routes[b]
 
 def najkrotsza_sciezka(G, A, B):
     """
@@ -96,5 +113,10 @@ def najkrotsza_sciezka(G, A, B):
     """
     graph = Graph(G)
 
-    print(graph.shortest_path(A, B))
+    dist, route = graph.shortest_path(A, B)
+
+    print(f"Najkrótsza sciezka ma dlugosc {dist}\n")
+    print(f"Kolejne wierzcholki tej sciezki to {route}")
+
+    return route
 

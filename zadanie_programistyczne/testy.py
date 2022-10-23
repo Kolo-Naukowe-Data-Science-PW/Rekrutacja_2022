@@ -1,6 +1,6 @@
 from skrypt import najkrotsza_sciezka
 
-
+# przykladowy graf
 G = {
   ("B", "D"): 2,
   ("D", "A"): 1,
@@ -10,6 +10,8 @@ G = {
   ("C", "D"): 7,
   ("E", "C"): 3
 } 
+# przykladowe wywolanie funkcji
+najkrotsza_sciezka(G, "D", "B")
 
-najkrotsza_sciezka(G, "C", "B")
+
 
