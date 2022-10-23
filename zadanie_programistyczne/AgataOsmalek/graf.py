@@ -4,16 +4,17 @@ def dijkstra(graph, n, dest, src):
     """
     :param graph: graf w formie mapy sąsiedztwa
     :param n: liczba wierzchołków w grafie
-    :param dest: wybrany wierzchołek grafu, który jest początkiem wyznaczania najkrótszych ścieżek do wszystkich pozostałych wierzchołków.
-    :return: Dla każdego wierzchołka i  algorytm wyznacza koszt dojścia d [ i  ] oraz poprzednika p [ i  ] na najkrótszej ścieżce.
+    :param dest: wybrany wierzchołek grafu, do którego szukamy ścieżki
+    :param src: wybrany wierzchołek grafu, z którego startujemy poszukiwania
+    :return: algorytm wyznacza koszt dojścia oraz kolejne wierzchołki najkrótszej ścieżki.
     """
     QS = [False] * n                # czy i-ty wierzchołek został już przetworzony
-    dist = [float("inf")] * n       # tablica minimalnych odległości
+    dist = [float("inf")] * n       # tablica minimalnych odległości od dest
     prev = [-1 for _ in range(n)]   # tablica poprzedników
     hlen = n                        # wielkość kopca
     heap = [0] * n                  # kopiec (kolejka priorytetowa)
     heap_pointer = [0] * n          # informacja o położeniu i-tego wierzchołka w kopcu
-    for i in range(n):              # ustawienie początkowe kopca
+    for i in range(n):              # ustawianie początkowe kopca:
         heap[i] = i
         heap_pointer[i] = i
     dist[dest] = 0
@@ -29,7 +30,7 @@ def dijkstra(graph, n, dest, src):
         heap[0] = heap[hlen]
         heap_pointer[heap[0]] = 0
         parent = 0
-        while True:                                         # aktualizowanie kopca (w dół)
+        while True:                                         # aktualizowanie kopca (w dół):
             left = 2 * parent + 1
             right = left + 1
             if left >= hlen:
@@ -49,13 +50,13 @@ def dijkstra(graph, n, dest, src):
             heap_pointer[heap[pmin]] = pmin
             parent = pmin
         QS[u] = True                                        # oznaczenie wierzchołka u jako przetworzonego
-        if u != src:                                        # jeśli jeszcze nie dotarliśmy do celu to aktualizujemy odległości nieprzetworzonych sąsiadów u
+        if u != src:                                        # jeśli jeszcze nie dotarliśmy do celu to aktualizujemy odległości nieprzetworzonych sąsiadów u:
             for v in graph[u]:
                 if not QS[v[0]] and dist[v[0]] > dist[u] + v[1]:
                     dist[v[0]] = dist[u] + v[1]
                     prev[v[0]] = u
                     child = heap_pointer[v[0]]
-                    while child > 0:                        # aktualizowanie kopca (w górę)
+                    while child > 0:                        # aktualizowanie kopca (w górę):
                         parent = child // 2
                         if dist[heap[parent]] <= dist[heap[child]]:
                             break
@@ -65,7 +66,7 @@ def dijkstra(graph, n, dest, src):
                         heap_pointer[heap[parent]] = parent
                         heap_pointer[heap[child]] = child
                         child = parent
-    s = chr(src + 65) + ", "                                # wypisanie
+    s = chr(src + 65) + ", "                                # wypisanie:
     j = src
     while prev[j] > -1:
         s = s + chr(prev[j] + 65) + ", "
@@ -77,7 +78,7 @@ def dijkstra(graph, n, dest, src):
 def graph_to_adjacency_dict(tupla_dict):
     '''
     :param tupla_dict: słownik, gdzie kluczem jest tupla, a wartością odległość między punktami
-    :return: łownik, gdzie kluczem wierzchołki, a wartością krotka (wierzchołek,odległość od niego)
+    :return: słownik sąsiedztwa, gdzie kluczem są pojedyncze wierzchołki, a wartością krotka: (wierzchołek,odległość od niego)
     '''
     adj_dict = {}
     for key in tupla_dict:
