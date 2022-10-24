@@ -34,4 +34,3 @@ Przykładowe dane - słownik, gdzie kluczem jest tupla (punkty połączone ze so
 - **Machine learning** - na wybranym przez siebie zbiorze danych (mają to być dane tabelaryczne (ustrukturyzowane), a problem ma być klasyfikacyjny) należy stworzyć prosty model machine learningowy wraz z całym procesem przetwarzania danych tj. oczyszczanie, transformacje, kodowanie itd..  Najważniejszym kryterium oceny tego zadania będzie metodyka tworzenia modelu, jakość procesu przetwarzania danych wejściowych oraz podejście do oceny jego jakości
 Macie pytania? Wątpliwości? Nie krępujcie się pytać!! Chętnie pomożemy!
 Powodzenia!
-

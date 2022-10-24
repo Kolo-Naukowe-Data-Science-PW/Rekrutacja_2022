@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sukienki</title>
+        <style>
+            body {
+                background-color: #cac7ed;
+                font-family: Verdana;
+                text-align: center;
+            }
+    
+            div {
+                background-color: #fff;
+                max-width: 1000px;
+                margin: 100px auto;
+                padding: 30px 20px;
+                box-shadow: 2px 5px 10px;
+                border-radius: 30px;
+            }
+
+        </style>
+</head>
+<body>
+<div>
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
+</div>
+</body>
+</html>
